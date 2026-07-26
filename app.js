@@ -2,7 +2,7 @@
 // CINEMATCH — frontend logic (plain JS, no framework)
 
 // =====================================================================
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = "https://movie-finder-lwhb.onrender.com";
 
 // TMDB image sizes for the raw /tmdb/search response, which returns
 // bare poster_path strings (e.g. "/abc123.jpg") instead of full URLs —
