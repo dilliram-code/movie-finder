@@ -42,4 +42,41 @@ df: Optional[pd.DataFrame] = None
 indices_obj: Any = None 
 tfidf_matrix: Any = None 
 
-TITLE_TO_IDX: Optional[Dict[str, str]] = None 
+TITLE_TO_IDX: Optional[Dict[str, int]] = None 
+
+class TMDBMovieCard(BaseModel):
+  tmdb_id:int 
+  title: str 
+  poster_url: Optional[str] = None 
+  release_date: Optional[float] = None 
+  vote_average: Optional[float] = None  
+
+class TMDBMovieDetails(BaseModel):
+  tmdb_id: int 
+  title: str 
+  overview: Optional[str] = None 
+  release_date: Optional[str] = None 
+  poster_url: Optional[str] = None 
+  backdrop_url: Optional[str] = None 
+  genres: List[dict] = []
+
+class TFIDFRecItem(BaseModel):
+  title: str 
+  score: float 
+  tmdb: Optional[TMDBMovieCard] = None 
+
+class SearchBundleResponse(BaseModel):
+  query: str 
+  movie_details: TMDBMovieDetails
+  tfidf_recommendations: List[TFIDFRecItem]
+  genre_recommendations: List[TMDBMovieDetails]
+  
+
+def _norm_title(t: str) -> str:
+  return str(t).strip().lower()
+
+def make_img_url(path: Optional[str]) -> Optional[str]:
+  if not path:
+    return None 
+  return f"{TMDB_IMG_500}{path}"
+
